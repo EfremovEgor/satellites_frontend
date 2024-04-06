@@ -1,6 +1,6 @@
 import React from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF } from "@react-three/drei";
+import { OrbitControls, useGLTF, Environment } from "@react-three/drei";
 import Satellite from './Satellite';
 import * as THREE from 'three';
 
@@ -47,6 +47,7 @@ const CustomEarth = () => {
       camera={{ position: [0, 10, 20], fov: 45, near: 0.1, far: 200 }}
     >
       <color args={["#1e1e1e"]} attach="background" />
+      <Environment preset="sunset"/>
       <OrbitControls autoRotate enableZoom={true} enablePan={true} />
       <primitive object={earthModel} scale={5} />
       <Satellite height={10} speed={0.1} orbitRadius={10} />
