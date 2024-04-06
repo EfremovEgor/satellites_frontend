@@ -13,6 +13,12 @@ const ExtendedCanvas = ({ children, ...props }) => {
   return <Canvas {...props}>{children}</Canvas>;
 };
 
+var points = [
+  new THREE.Vector3( 1, 2, 3 ),
+  new THREE.Vector3( 2, 3, 4 ),
+  new THREE.Vector3( 3, 4, 5 ),
+  // add more points as needed
+];
 
 
 
@@ -50,8 +56,9 @@ const CustomEarth = () => {
       <Environment preset="sunset"/>
       <OrbitControls autoRotate enableZoom={true} enablePan={true} />
       <primitive object={earthModel} scale={5} />
-      <Satellite height={10} speed={0.1} orbitRadius={10} />
-      <Satellite height={5} speed={0.1} orbitRadius={15} />
+      {/* <Satellite height={10} speed={0.1} orbitRadius={10} /> */}
+      <Satellite x={0} y={2} z={1} points={points}></Satellite>
+      {/* <Satellite height={5} speed={0.1} orbitRadius={15} /> */}
       {/* Satellites */}
 
       {/* {satellites.map((satellite, index) => {
