@@ -2,7 +2,14 @@ import React from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF, Environment } from "@react-three/drei";
 import Satellite from './Satellite';
+import extractCoordinates from './pointsData';
+import jsonData from "./res.json"
 import * as THREE from 'three';
+
+const data = jsonData
+const flatData = Array.from(new Set(data.flat(2)))
+const IDs = Array.from(new Set(data.flat(2).map(item => Object.keys(item)[0])));
+const count = IDs.length
 
 const rotateModel = (model) => {
   model.rotation.y = Math.PI;
@@ -29,7 +36,9 @@ const CustomEarth = () => {
   //   { height: 3, speed: 5 },
   // ];
   const customModel = useGLTF("/models/earth/scene.gltf");
-  const earthModel = rotateModel(customModel.scene);
+  // const earthModel = rotateModel(customModel.scene);
+  const earthModel = customModel.scene;
+
   // const earthPosition = new THREE.Vector3().fromArray(earthModel.position);
 
   // const satellite = <Satellite height={10} speed={1} orbitRadius={5} />
@@ -54,12 +63,32 @@ const CustomEarth = () => {
     >
       <color args={["#1e1e1e"]} attach="background" />
       <Environment preset="sunset"/>
-      <OrbitControls autoRotate enableZoom={true} enablePan={true} />
+      <OrbitControls autoRotate autoRotateSpeed={0.1} enableZoom={true} enablePan={true} />
       <primitive object={earthModel} scale={5} />
       {/* <Satellite height={10} speed={0.1} orbitRadius={10} /> */}
-      <Satellite x={0} y={2} z={1} points={points}></Satellite>
+      <Satellite points={extractCoordinates(flatData, IDs[0])}></Satellite>
+      <Satellite points={extractCoordinates(flatData, IDs[1])}></Satellite>
+      <Satellite points={extractCoordinates(flatData, IDs[2])}></Satellite>
+      <Satellite points={extractCoordinates(flatData, IDs[3])}></Satellite>
+      <Satellite points={extractCoordinates(flatData, IDs[4])}></Satellite>
+      <Satellite points={extractCoordinates(flatData, IDs[5])}></Satellite>
+      <Satellite points={extractCoordinates(flatData, IDs[6])}></Satellite>
+      <Satellite points={extractCoordinates(flatData, IDs[7])}></Satellite>
+      <Satellite points={extractCoordinates(flatData, IDs[8])}></Satellite>
+      <Satellite points={extractCoordinates(flatData, IDs[9])}></Satellite>
+      <Satellite points={extractCoordinates(flatData, IDs[10])}></Satellite>
+      <Satellite points={extractCoordinates(flatData, IDs[11])}></Satellite>
+      <Satellite points={extractCoordinates(flatData, IDs[12])}></Satellite>
+      <Satellite points={extractCoordinates(flatData, IDs[13])}></Satellite>
+      <Satellite points={extractCoordinates(flatData, IDs[14])}></Satellite>
+      
       {/* <Satellite height={5} speed={0.1} orbitRadius={15} /> */}
       {/* Satellites */}
+
+
+      
+
+
 
       {/* {satellites.map((satellite, index) => {
           return (

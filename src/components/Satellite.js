@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-const OrbitingSatellite = ({ x, y, z, points }) => {
+const OrbitingSatellite = ({ points }) => {
   const satelliteRef = useRef();
   const satelliteGeo = new THREE.SphereGeometry(0.1,33,32);
   const satelliteMat = new THREE.MeshBasicMaterial({ color: "#ff6a6a" });
@@ -14,12 +14,12 @@ const OrbitingSatellite = ({ x, y, z, points }) => {
 
     // Calculate the position of the satellite along the circular orbit
     if (currentIndex.current < points.length - 1) {
-      satelliteRef.current.position.lerp(points[currentIndex.current + 1], 0.05);
+      satelliteRef.current.position.lerp(points[currentIndex.current + 1], 0.01);
       if (satelliteRef.current.position.distanceTo(points[currentIndex.current + 1]) < 0.01) {
         currentIndex.current++;
       }
     } else {
-      satelliteRef.current.position.lerp(points[0], 0.05);
+      satelliteRef.current.position.lerp(points[0], 0.01);
       if (satelliteRef.current.position.distanceTo(points[0]) < 0.01) {
         currentIndex.current = 0;
       }
@@ -43,8 +43,8 @@ const OrbitingSatellite = ({ x, y, z, points }) => {
 //   });
 
   return (
-    <mesh ref={satelliteRef} position={[x, y, z]}>
-      <primitive object={satellite} scale={1} />
+    <mesh ref={satelliteRef} position={[4, 4, 4]}>
+      <primitive object={satellite} scale={0.7} />
     </mesh>
   );
 };
