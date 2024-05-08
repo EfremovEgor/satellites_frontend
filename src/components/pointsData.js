@@ -1,11 +1,18 @@
 import { useEffect, useState } from 'react';
 import * as THREE from 'three';
 import jsonData from "./res.json"
+import coords from "./satellite_coords.json"
 
 
 
 const data = jsonData
 const flatData = Array.from(new Set(data.flat(2)))
+
+const data2 = coords
+
+console.log(coords[0].id)
+console.log(coords[0].loc[0])
+
 
 const extractCoordinates = (flatData, id) => {
     const threeVectors = flatData

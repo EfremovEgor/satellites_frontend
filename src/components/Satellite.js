@@ -1,14 +1,19 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useContext } from "react";
 import { useFrame } from "@react-three/fiber";
+import InfoBar from "./SatelliteInfo";
+
 import * as THREE from "three";
 
 const OrbitingSatellite = ({ points }) => {
   const satelliteRef = useRef();
   const satelliteGeo = new THREE.SphereGeometry(0.1,33,32);
   const satelliteMat = new THREE.MeshBasicMaterial({ color: "#ff6a6a" });
+  const [satelliteColor, setSatelliteColor] = useState(satelliteMat);
   const satellite = new THREE.Mesh(satelliteGeo, satelliteMat);
   const currentIndex = useRef(0); 
-
+  const [isActive, setIsActive] = useState(false);
+  const [selectedSatellite, setSelectedSatellite] = useState(null)
+ 
 
   useFrame(() => {
 
@@ -26,25 +31,36 @@ const OrbitingSatellite = ({ points }) => {
     }
     });    
 
-//   useFrame(({ clock }) => {
-//     const elapsedTime = clock.getElapsedTime() % 10; // To keep the animation smooth when the timer resets
-//     const angle = -elapsedTime * speed * 2 * Math.PI;
-
-//     // Calculate the position of the satellite along the circular orbit
-
-//     satelliteRef.current.position.x = orbitRadius * Math.cos(angle);
-//     satelliteRef.current.position.y = orbitRadius * Math.sin(angle);
-//     satelliteRef.current.position.z = orbitRadius * Math.sin(angle);
-//     satelliteRef.current.position.moveToNextPoint
-//     satelliteRef.current.position.
+    // const handleClick = () => {
+    //   setIsActive(true);
+    //   console.log("click");
+    // };
 
 
-//     satelliteRef.current.rotation.y += 0.01;
-//   });
+    const handleClick = (satellitePosition) => {
+      setIsActive(true);
+      setSelectedSatellite(satellitePosition);
+    };
+
+
+    const handleMouseEnter = () => {
+      satelliteMat.color.set("#ffffff");
+    };
+
+    const handleMouseLeave = () => {
+      satelliteMat.color.set("#ff6a6a");
+    };
 
   return (
-    <mesh ref={satelliteRef} position={[4, 4, 4]}>
+    <mesh 
+      ref={satelliteRef} 
+      position={[4, 4, 4]}
+      onClick={() => handleClick(satelliteRef.current.position)}
+      onPointerEnter={handleMouseEnter}
+      onPointerLeave={handleMouseLeave}
+    >
       <primitive object={satellite} scale={0.7} />
+      
     </mesh>
   );
 };
