@@ -10,8 +10,8 @@ const flatData = Array.from(new Set(data.flat(2)))
 
 const data2 = coords
 
-console.log(coords[0].id)
-console.log(coords[0].loc[0])
+// console.log(coords[0].id)
+// console.log(coords[0].loc[0])
 
 
 const extractCoordinates = (flatData, id) => {
@@ -28,6 +28,20 @@ const extractCoordinates = (flatData, id) => {
     return threeVectors;
   }
 
+
+const extractNewCoordinates = (Data, id) => {
+  const Vectors = Data
+    .filter(item => item.id === id)
+    .flatMap(item => item.loc.map((position, index) => {
+      const [deltatime, x, y, z] = position;
+      return { vector: new THREE.Vector3(x * 7, y * 7, z * 7), deltatime };
+    }));
+  
+  return Vectors;
+}
+
+
+console.log(extractNewCoordinates(coords, 53433))
 
 // const id = "53433";
 // const threeVectors = extractCoordinates(flatData, id);

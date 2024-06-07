@@ -9,7 +9,6 @@ import * as THREE from 'three';
 const data = jsonData
 const flatData = Array.from(new Set(data.flat(2)))
 const IDs = Array.from(new Set(data.flat(2).map(item => Object.keys(item)[0])));
-const count = IDs.length
 
 // const rotateModel = (model) => {
 //   model.rotation.y = Math.PI;

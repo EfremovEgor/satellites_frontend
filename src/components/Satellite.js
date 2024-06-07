@@ -40,6 +40,7 @@ const OrbitingSatellite = ({ points }) => {
     const handleClick = (satellitePosition) => {
       setIsActive(true);
       setSelectedSatellite(satellitePosition);
+      console.log(satellitePosition)
     };
 
 
@@ -52,6 +53,7 @@ const OrbitingSatellite = ({ points }) => {
     };
 
   return (
+    <>
     <mesh 
       ref={satelliteRef} 
       position={[4, 4, 4]}
@@ -62,6 +64,7 @@ const OrbitingSatellite = ({ points }) => {
       <primitive object={satellite} scale={0.7} />
       
     </mesh>
+    </>
   );
 };
 
