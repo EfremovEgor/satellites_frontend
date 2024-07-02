@@ -13,7 +13,7 @@ const Search = () => {
 
     return ( 
         <div className="fixed z-10 flex justify-center items-end flex-col pt-5 pr-5 min-w-[400px] w-full">
-            <div className="w-4/5">
+            <div className="w-2/5">
                 <SearchBar setResult = {setResult}/>
                 <div>
                     <SearchResult results = {result} onResultSelect={handleResultSelect}/>

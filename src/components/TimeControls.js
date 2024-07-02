@@ -1,17 +1,28 @@
+// TODO:Добавить готовые ваирантны времени и возврат нового дня в календарь для переключения(либо поставить в каленаре второй отсчётчик во избежане рекурсии)
+
 import React, { useState, useEffect } from 'react';
+import { DatePickerContext } from './DatePickerContext';
 
 const TimeControls = () => {
-  const [time, setTime] = useState(new Date());
+  // const [time, setTime] = useState(new Date());
+  const { pickedDate } = React.useContext(DatePickerContext);
+  const [time, setTime] = useState(pickedDate ? new Date(pickedDate) : new Date());
   const [intervalValue, setIntervalValue] = useState(1000);
 
   useEffect(() => {
+    setTime(new Date(pickedDate));
+  }, [pickedDate])
+  
+  useEffect(() => {
+    let previousDay = time.getDate();
     const intervalId = setInterval(() => {
       setTime(new Date(time.getTime() + 60 * 60 * 1000));
 
-      const currentDate = new Date();
-      if (currentDate.getDate() !== time.getDate()) {
-        console.log(`A new day has begun at ${currentDate.toLocaleTimeString()}`);
-        setTime(new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), time.getHours(), time.getMinutes(), time.getSeconds()));
+      const currentDay = new Date();
+      if (currentDay !== previousDay) {
+        // console.log(`A new day has begun at ${time.toLocaleTimeString()}, it's ${time}`);
+        
+        previousDay = currentDay;
       }
     }, intervalValue);
 

@@ -41,7 +41,7 @@ const extractNewCoordinates = (Data, id) => {
 }
 
 
-console.log(extractNewCoordinates(coords, 53433))
+console.log(extractNewCoordinates(coords, 53433)[0].deltatime)
 
 // const id = "53433";
 // const threeVectors = extractCoordinates(flatData, id);

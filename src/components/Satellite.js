@@ -1,14 +1,17 @@
+// TODO: Смотреть TODO в CustomEarth.
+// TODO: Добавить ускорение спутников при ускорении времени.
+
 import React, { useRef, useState, useContext } from "react";
 import { useFrame } from "@react-three/fiber";
-import InfoBar from "./SatelliteInfo";
+import Dashboard from "./Dashboard";
 
 import * as THREE from "three";
 
-const OrbitingSatellite = ({ points }) => {
+const OrbitingSatellite = ({ points, id, name, setDashboardData }) => {
   const satelliteRef = useRef();
   const satelliteGeo = new THREE.SphereGeometry(0.1,33,32);
   const satelliteMat = new THREE.MeshBasicMaterial({ color: "#ff6a6a" });
-  const [satelliteColor, setSatelliteColor] = useState(satelliteMat);
+  // const [satelliteColor, setSatelliteColor] = useState(satelliteMat);
   const satellite = new THREE.Mesh(satelliteGeo, satelliteMat);
   const currentIndex = useRef(0); 
   const [isActive, setIsActive] = useState(false);
@@ -31,16 +34,12 @@ const OrbitingSatellite = ({ points }) => {
     }
     });    
 
-    // const handleClick = () => {
-    //   setIsActive(true);
-    //   console.log("click");
-    // };
-
 
     const handleClick = (satellitePosition) => {
       setIsActive(true);
       setSelectedSatellite(satellitePosition);
-      console.log(satellitePosition)
+      console.log(satellitePosition);
+      setDashboardData({ id, name, position: satellitePosition });
     };
 
 

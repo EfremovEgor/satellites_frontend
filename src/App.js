@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import CustomEarth from "./components/CustomEarth";
 import Search from "./components/Search2";
 import Clock from  "./components/TimeControls";
-import extractCoordinates from './components/pointsData';
+import Dashboard from "./components/Dashboard";
+
 import jsonData from "./components/res.json"
 import DatePicker from "./components/DatePicker";
+import { DatePickerProvider } from './components/DatePickerContext';
 
 
 // const {extractCoordinates} = require('./components/pointsData')
@@ -15,14 +17,30 @@ const keys = Array.from(new Set(data.flat(2).map(item => Object.keys(item)[0])))
 
 
 function App() {
+
+  const [dashboardData, setDashboardData] = useState(null);
+
   return (
-    <div className="App">
-      {/* {console.log(keys)} */}
-      <DatePicker/>
-      <Search />
-      <CustomEarth />
-      <Clock />
-    </div>
+    // <div className="App">
+    //   <DatePicker/>
+    //   <Search />
+    //   <CustomEarth />
+    //   <Clock />
+    // </div>
+    <DatePickerProvider>
+      <div className="App">
+        <div className="grid grid-flow-col gap-4">
+          <DatePicker/>
+          <Search/>
+        </div>
+        {/* <DatePicker/> */}
+        {/* <Search /> */}
+        <CustomEarth setDashboardData={setDashboardData} />
+        <Clock />
+        <Dashboard data={dashboardData} />
+      </div>
+    </DatePickerProvider>
+
   );
 }
 
