@@ -7,6 +7,7 @@ import Dashboard from "./components/Dashboard";
 import jsonData from "./components/res.json"
 import DatePicker from "./components/DatePicker";
 import { DatePickerProvider } from './components/DatePickerContext';
+import { IntervalProvider } from "./components/IntervalContext";
 
 
 // const {extractCoordinates} = require('./components/pointsData')
@@ -35,8 +36,13 @@ function App() {
         </div>
         {/* <DatePicker/> */}
         {/* <Search /> */}
-        <CustomEarth setDashboardData={setDashboardData} />
-        <Clock />
+        <IntervalProvider>
+
+          <CustomEarth setDashboardData={setDashboardData} />
+          <Clock />
+
+        </IntervalProvider>
+        
         <Dashboard data={dashboardData} />
       </div>
     </DatePickerProvider>

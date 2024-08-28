@@ -7,29 +7,38 @@ import Dashboard from "./Dashboard";
 
 import * as THREE from "three";
 
-const OrbitingSatellite = ({ points, id, name, setDashboardData }) => {
+const OrbitingSatellite = ({ points, id, name, setDashboardData, delay }) => {
   const satelliteRef = useRef();
   const satelliteGeo = new THREE.SphereGeometry(0.1,33,32);
+  // const delay = 1000
   const satelliteMat = new THREE.MeshBasicMaterial({ color: "#ff6a6a" });
   // const [satelliteColor, setSatelliteColor] = useState(satelliteMat);
   const satellite = new THREE.Mesh(satelliteGeo, satelliteMat);
   const currentIndex = useRef(0); 
   const [isActive, setIsActive] = useState(false);
   const [selectedSatellite, setSelectedSatellite] = useState(null)
+  const [delayTimeout, setDelayTimeout] = useState(null);
  
 
   useFrame(() => {
+    if (delayTimeout) return;
 
     // Calculate the position of the satellite along the circular orbit
     if (currentIndex.current < points.length - 1) {
       satelliteRef.current.position.lerp(points[currentIndex.current + 1], 0.01);
       if (satelliteRef.current.position.distanceTo(points[currentIndex.current + 1]) < 0.01) {
         currentIndex.current++;
+        setDelayTimeout(setTimeout(() => {
+          setDelayTimeout(null);
+        }, delay))
       }
     } else {
       satelliteRef.current.position.lerp(points[0], 0.01);
       if (satelliteRef.current.position.distanceTo(points[0]) < 0.01) {
         currentIndex.current = 0;
+        setDelayTimeout(setTimeout(() => {
+          setDelayTimeout(null);
+        }, delay))
       }
     }
     });    

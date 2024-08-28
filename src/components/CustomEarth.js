@@ -1,12 +1,13 @@
 // TODO: Продумать механику с ПКМ. Отсмотреть баг, где спутники перестают вращаться после того, как пользователь задержит планету и не прокрутит её после этого 
 // TODO: Создать получение дат при её смене в этом коде и, соответственно смене координат на координты нового дня(assist с бэком, поскольку координаты передфются подневно)
 
-import React from "react";
+import React, { useContext } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF, Environment } from "@react-three/drei";
 import Satellite from './Satellite';
 import extractCoordinates from './pointsData';
 import jsonData from "./res.json"
+import { IntervalContext } from "./IntervalContext";
 import * as THREE from 'three';
 
 const data = jsonData
@@ -26,6 +27,7 @@ const CustomEarth = ({ setDashboardData }) => {
   
   const customModel = useGLTF("/models/earth/scene.gltf");
   const earthModel = customModel.scene;
+  const { intervalValue } = useContext(IntervalContext);
 
 
 
@@ -48,6 +50,7 @@ const CustomEarth = ({ setDashboardData }) => {
           setDashboardData={setDashboardData} 
           id={id}
           name={id}
+          delay={intervalValue}
         />
       ))}
       

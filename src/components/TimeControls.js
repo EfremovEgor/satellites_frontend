@@ -1,13 +1,16 @@
 // TODO:Добавить готовые ваирантны времени и возврат нового дня в календарь для переключения(либо поставить в каленаре второй отсчётчик во избежане рекурсии)
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { DatePickerContext } from './DatePickerContext';
+import { IntervalContext } from './IntervalContext';
 
 const TimeControls = () => {
   // const [time, setTime] = useState(new Date());
   const { pickedDate } = React.useContext(DatePickerContext);
   const [time, setTime] = useState(pickedDate ? new Date(pickedDate) : new Date());
-  const [intervalValue, setIntervalValue] = useState(1000);
+  // const [intervalValue, setIntervalValue] = useState(1000);
+  const {intervalValue, setIntervalValue} = useContext(IntervalContext)
+  const interval = intervalValue/1000
 
   useEffect(() => {
     setTime(new Date(pickedDate));
@@ -50,6 +53,9 @@ const TimeControls = () => {
         <button className="bg-violet-500 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded" onClick={incrementTime}>
           +
         </button>
+        <div className='mx-4 text-xl text-white font-bold'>
+          Interval: {intervalValue / 1000} seconds
+        </div>
       </div>
     </div>
   );

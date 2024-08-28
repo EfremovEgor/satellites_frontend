@@ -1,13 +1,19 @@
-// TODO: Задизайнить и сверстать панель. Передавать начение закрытия панели в общий код, чтобы впоследствии это состояние не ступорилось
+// TODO: Задизайнить и сверстать панель. 
 
 
 
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
 
 const Dashboard = ({ data }) => {
   const [isOpen, setIsOpen] = useState(true);
+
+  useEffect(() => {
+    if (data) {
+      setIsOpen(true);
+    }
+  }, [data]);
 
   if (!data ||!isOpen) return null;
 
